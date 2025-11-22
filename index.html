@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>StatSphere | Learn Statistics</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__content">
+      <p class="eyebrow">Interactive practice · Real-world examples</p>
+      <h1>Build intuition for statistics one concept at a time.</h1>
+      <p class="subtitle">Mini-lessons, calculators, and bite-size quizzes to help you master descriptive and inferential statistics without the jargon overload.</p>
+      <div class="hero__actions">
+        <a class="btn primary" href="#paths">Start learning</a>
+        <a class="btn ghost" href="#calculators">Try a calculator</a>
+      </div>
+      <div class="hero__meta">
+        <div>
+          <span class="meta__label">Guided tracks</span>
+          <strong>Foundations · Probability · Inference</strong>
+        </div>
+        <div>
+          <span class="meta__label">Practice ready</span>
+          <strong>Quizzes and walkthroughs</strong>
+        </div>
+      </div>
+    </div>
+    <div class="hero__visual">
+      <div class="card chart">
+        <div class="chart__bars">
+          <span style="height: 80%"></span>
+          <span style="height: 55%"></span>
+          <span style="height: 68%"></span>
+          <span style="height: 40%"></span>
+        </div>
+        <p>Visual summaries for each topic.</p>
+      </div>
+      <div class="card checklist">
+        <h3>Practice checklist</h3>
+        <ul>
+          <li>Calculate mean & median</li>
+          <li>Build confidence intervals</li>
+          <li>Test hypotheses</li>
+        </ul>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section id="paths" class="section">
+      <div class="section__header">
+        <p class="eyebrow">Pick a starting point</p>
+        <h2>Learning paths to match your goals</h2>
+        <p class="subtitle">Each module pairs definitions with examples, practice prompts, and visual cues to keep the math tangible.</p>
+      </div>
+      <div class="card-grid">
+        <article class="card">
+          <h3>Descriptive statistics</h3>
+          <p>Summaries that capture the center, spread, and shape of data distributions.</p>
+          <ul>
+            <li>Mean, median, mode</li>
+            <li>Variance & standard deviation</li>
+            <li>Histograms & boxplots</li>
+          </ul>
+          <button class="btn subtle" data-topic="descriptive">Preview lesson</button>
+        </article>
+        <article class="card">
+          <h3>Probability & random variables</h3>
+          <p>Connect events, distributions, and simulations to intuition about likelihoods.</p>
+          <ul>
+            <li>Discrete vs. continuous</li>
+            <li>Binomial & normal models</li>
+            <li>Sampling & the CLT</li>
+          </ul>
+          <button class="btn subtle" data-topic="probability">Preview lesson</button>
+        </article>
+        <article class="card">
+          <h3>Inference & decision-making</h3>
+          <p>Test ideas with confidence intervals, p-values, and effect sizes.</p>
+          <ul>
+            <li>Confidence intervals</li>
+            <li>Hypothesis testing</li>
+            <li>Power & sample size</li>
+          </ul>
+          <button class="btn subtle" data-topic="inference">Preview lesson</button>
+        </article>
+      </div>
+      <dialog id="lessonDialog">
+        <div class="dialog__header">
+          <h3 id="dialogTitle">Lesson preview</h3>
+          <button aria-label="Close" id="dialogClose">×</button>
+        </div>
+        <div id="dialogContent"></div>
+        <div class="dialog__footer">
+          <button class="btn primary" id="dialogStart">Start module</button>
+        </div>
+      </dialog>
+    </section>
+
+    <section id="calculators" class="section muted">
+      <div class="section__header">
+        <p class="eyebrow">Hands-on practice</p>
+        <h2>Quick calculators for intuition</h2>
+        <p class="subtitle">Paste your own data or try the defaults to see how statistics respond to each change.</p>
+      </div>
+      <div class="calculator-grid">
+        <article class="card">
+          <div class="card__header">
+            <h3>Mean & median</h3>
+            <p class="meta__label">Enter comma-separated numbers</p>
+          </div>
+          <textarea id="centerInput" rows="3" placeholder="12, 15, 20, 22, 25"></textarea>
+          <div class="calc__output" id="centerOutput">Mean: — · Median: —</div>
+          <button class="btn primary" id="centerCalc">Calculate</button>
+        </article>
+        <article class="card">
+          <div class="card__header">
+            <h3>Probability of X successes</h3>
+            <p class="meta__label">Binomial model</p>
+          </div>
+          <label class="field">Trials (n)<input id="binomTrials" type="number" value="10" min="1" /></label>
+          <label class="field">Probability of success (p)<input id="binomProb" type="number" value="0.5" min="0" max="1" step="0.01" /></label>
+          <label class="field">Target successes (k)<input id="binomTarget" type="number" value="3" min="0" /></label>
+          <div class="calc__output" id="binomOutput">P(X = k): —</div>
+          <button class="btn primary" id="binomCalc">Calculate</button>
+        </article>
+        <article class="card">
+          <div class="card__header">
+            <h3>Confidence interval</h3>
+            <p class="meta__label">Normal approximation</p>
+          </div>
+          <label class="field">Sample mean<input id="ciMean" type="number" value="72.5" step="0.1" /></label>
+          <label class="field">Sample SD<input id="ciSd" type="number" value="8" step="0.1" min="0" /></label>
+          <label class="field">Sample size<input id="ciN" type="number" value="30" min="1" /></label>
+          <label class="field">Confidence level (%)<input id="ciLevel" type="number" value="95" min="50" max="99" /></label>
+          <div class="calc__output" id="ciOutput">Interval: —</div>
+          <button class="btn primary" id="ciCalc">Calculate</button>
+        </article>
+      </div>
+    </section>
+
+    <section id="quiz" class="section">
+      <div class="section__header">
+        <p class="eyebrow">Checkpoint</p>
+        <h2>Three-question confidence check</h2>
+        <p class="subtitle">Quickly check your understanding before moving on.</p>
+      </div>
+      <div class="quiz card">
+        <div class="quiz__progress">
+          <div id="quizProgress" class="quiz__progress-bar"></div>
+        </div>
+        <div id="quizPrompt" class="quiz__prompt"></div>
+        <div id="quizOptions" class="quiz__options"></div>
+        <div id="quizFeedback" class="quiz__feedback"></div>
+        <div class="quiz__footer">
+          <button class="btn ghost" id="quizPrev">Previous</button>
+          <button class="btn primary" id="quizNext">Next</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div>
+      <h3>StatSphere</h3>
+      <p>Learn statistics with visual stories, calculators, and guided practice.</p>
+    </div>
+    <div class="footer__links">
+      <a href="#paths">Learning paths</a>
+      <a href="#calculators">Calculators</a>
+      <a href="#quiz">Quiz</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
